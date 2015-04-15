@@ -1,6 +1,8 @@
 In different terminals:
 
+```
 composer install
+```
 
 Term 1:
 ```
