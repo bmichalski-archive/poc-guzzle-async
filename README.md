@@ -1,4 +1,6 @@
-In different terminals:
+This is simple POC to test Guzzle ability to execute multiple asynchronous requests.
+
+In multiple terminals:
 
 ```
 composer install

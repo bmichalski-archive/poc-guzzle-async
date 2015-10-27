@@ -2,24 +2,36 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Message\Response;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Psr7\Response;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $client = new Client();
 
-$req = $client->createRequest('GET', 'http://localhost:8080/ws.php?sleep=2', ['future' => true]);
+$start = \microtime(true);
 
-$client->send($req)->then(function (Response $response) {
+$promise = $client->getAsync(
+    'http://localhost:8080/ws.php?sleep=2'
+)->then(function (Response $response) {
     var_dump($response->getBody()->getContents());
 }, function (RequestException $ex) {
     var_dump($ex->getMessage());
 });
 
-$req2 = $client->createRequest('GET', 'http://localhost:8081/ws.php?sleep=1', ['future' => true]);
-
-$client->send($req2)->then(function (Response $response) {
+$promise2 = $client->getAsync(
+    'http://localhost:8081/ws.php?sleep=1'
+)->then(function (Response $response) {
     var_dump($response->getBody()->getContents());
 }, function (RequestException $ex) {
     var_dump($ex->getMessage());
 });
+
+$promises = [
+    $promise,
+    $promise2
+];
+
+$results = Promise\unwrap($promises);
+
+echo 'Took '.(microtime(true) - $start).' seconds'.PHP_EOL;
