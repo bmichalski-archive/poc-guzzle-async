@@ -1,5 +1,7 @@
 This is simple POC to test Guzzle ability to execute multiple asynchronous requests.
 
+It requires the cURL PHP extension.
+
 In multiple terminals:
 
 ```
