@@ -20,7 +20,7 @@ $promise = $client->getAsync(
 });
 
 $promise2 = $client->getAsync(
-    'http://localhost:8081/ws.php?sleep=1'
+    'http://localhost:8080/ws.php?sleep=1'
 )->then(function (Response $response) {
     var_dump($response->getBody()->getContents());
 }, function (RequestException $ex) {
